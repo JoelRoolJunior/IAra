@@ -16,7 +16,7 @@
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-53.tar.gz",
+    "react-native": "0.79.2",
     "react-native-animatable": "^1.4.0",
     "react-native-gesture-handler": "~2.24.0",
     "react-native-linear-gradient": "^2.8.3",
