@@ -1,5 +1,6 @@
 {
-  "license": "0BSD",
+  "name": "iaraapp",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "expo start",
@@ -8,29 +9,18 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@expo/metro-runtime": "~5.0.4",
-    "@react-navigation/native": "^7.1.6",
-    "@react-navigation/native-stack": "^7.3.10",
-    "expo": "^53.0.9",
+    "@react-navigation/native": "^7.1.9",
+    "@react-navigation/native-stack": "^7.3.13",
+    "expo": "~53.0.9",
     "expo-linear-gradient": "~14.1.4",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-53.tar.gz",
+    "react-native": "0.79.2",
     "react-native-animatable": "^1.4.0",
-    "react-native-gesture-handler": "~2.24.0",
-    "react-native-linear-gradient": "^2.8.3",
-    "react-native-paper": "^5.13.4",
-    "react-native-reanimated": "~3.17.4",
-    "react-native-safe-area-context": "5.4.0",
-    "react-native-screens": "~4.10.0",
-    "react-native-vector-icons": "^10.2.0",
-    "react-native-web": "^0.20.0"
+    "react-native-safe-area-context": "^5.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@expo/cli": "^0.24.13",
-    "metro": "^0.82.3"
+    "@babel/core": "^7.20.0"
   },
   "private": true
 }

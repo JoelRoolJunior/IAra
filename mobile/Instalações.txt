@@ -1,0 +1,7 @@
+1-Criação do projeto 
+  npx create-expo-app IAraApp --template blank //
+2-Instalações
+npm install @react-navigation/nativenpm install @react-navigation/native-stack
+npm install react-native-animatable
+npx expo install expo-linear-gradient
+npm install react-native-safe-area-context

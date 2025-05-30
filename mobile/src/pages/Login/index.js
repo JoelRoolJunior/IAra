@@ -1,10 +1,12 @@
-import { View, Text, TextInput, StyleSheet, Image} from 'react-native'
+import { View, Text, TextInput, StyleSheet,TouchableOpacity, Image} from 'react-native'
 import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Animatable from 'react-native-animatable'
+import { useNavigation } from '@react-navigation/native'
 
 
 export default function Login() {
+  const navigation = useNavigation()
   return (
     
     <View style={styles.container}>
@@ -21,6 +23,10 @@ export default function Login() {
           <TextInput style={styles.textoInput} placeholder='LOGIN'/>
         <Text style={styles.textoLogin}>Senha</Text>
           <TextInput style={styles.textoInput} placeholder=''/>
+
+          <TouchableOpacity style={styles.button} onPress={ ()=> navigation.navigate('Chat')}>
+              <Text  style={{ color: 'white' }}>Entrar</Text>
+          </TouchableOpacity>
 
           <Text style={styles.textoAviso}>Novo por aqui? Cadastre-se</Text>
           <Text style={styles.textoAviso}>Esqueceu a Senha?</Text>
@@ -70,7 +76,7 @@ const styles = StyleSheet.create({
       color: 'white',
       alignSelf: 'center', 
       textDecorationLine: 'underline',
-      marginTop: 10
+      marginTop: 25
     },
     logo:{
       width: '40%',
@@ -82,5 +88,17 @@ const styles = StyleSheet.create({
     containerLogo:{
         backgroundColor: 'black'
         
+    },
+    button :{
+      backgroundColor: 'rgba(8, 144, 199, 0.4)',
+      borderRadius: 10,
+      paddingVertical: 8,
+      width: '60%',
+      alignSelf: 'center' ,
+      bottom: '-5%',
+      alignItems: 'center',
+      color: "white",
+      borderColor: 'white',
+      borderWidth: 1,
     }
   })
