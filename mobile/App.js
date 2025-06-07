@@ -1,14 +1,9 @@
-import { StatusBar } from 'react-native';
 import React from 'react';
-
-import { NavigationContainer } from '@react-navigation/native';
-import Routes from './src/routes';
+import Routes from './src/routes/routes'; // Importa o seu arquivo de rotas
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StatusBar backgroundColor="#87CEEB" barStyle="dark-content"></StatusBar>
-      <Routes/>
-    </NavigationContainer>
+    <Routes />
   );
 }
+
