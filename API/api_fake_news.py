@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from functions import predict_text
 
 app = Flask(__name__)
 # http://127.0.0.1:5000/responder?texto=textoExemplo
@@ -10,7 +11,7 @@ def responder():
         return jsonify({'erro': 'Nenhum texto foi enviado'}), 400
 
     # Aqui você pode gerar ou modificar a resposta
-    resposta = f"Voce disse: '{texto_recebido}', e aqui vai uma resposta qualquer!"
+    resposta = predict_text(texto_recebido)
 
     return jsonify({'resposta': resposta})
 

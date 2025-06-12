@@ -1,6 +1,7 @@
 import re
 import pickle
 import string
+import numpy as np
 
 def get_vectorization(path):
     with open(path, 'rb') as f:
@@ -13,13 +14,7 @@ def get_model(path):
     
     return model
 
-def predict_text(text):
-    random_forest_classifier_pkl = r'API\models\random_forest_classifier__TfidfVectorizer.pkl'
-    vectorization_pkl = r'API\vectorizer\vectorizer.pkl'
-
-    model = get_model(random_forest_classifier_pkl)
-    vectorization = get_vectorization(vectorization_pkl)
-
+def pre_text_treatment(text):
     text = text.lower()
     text = re.sub(r'\[.*?\]','',text)
     text = re.sub(r"\\W"," ",text)
@@ -27,20 +22,38 @@ def predict_text(text):
     text = re.sub(r'<.*?>+',b'',text)
     text = re.sub(r'[%s]' % re.escape(string.punctuation),'',text)
     text = re.sub(r'\w*\d\w*','',text)
-
-    vector = vectorization.transform([text])
     
-    return model.predict(vector)
+    return text
 
 
-text = """
-Kátia Abreu diz que vai colocar sua expulsão em uma moldura, mas não para de reclamar.	
-A senadora Kátia Abreu (sem partido-TO) disse que sua expulsão do PMDB foi resultado de uma ação da cúpula atual da legenda que, segundo ela, é oportunista.
-“Amanhã eu vou botar numa moldura dourada a minha expulsão, porque das mãos de onde veio, é um atestado de boa conduta para o meu currículo. Essas pessoas que me expulsaram não servem ao país. Eles se servem do país em seus benefícios próprios”, disse Kátia Abreu.
-Ué, mas se a expulsão é algo tão bom para seu currículo, por que tanta choradeira, Kátia?
-Sabemos o motivo. Provavelmente Kátia não tem valor para o PT, partido que já deveria tê-la absorvido. Ao que parece o PT gostava de Kátia somente se ela ficasse entrincheirada dentro do PMDB.
-Ou seja, isso é se rebaixar demais. Resta a Kátia ficar chorando as pitangas por todos os cantos.
-Em tempo: até o momento o PT não cadastrou Kátia Abreu em suas fileiras. Que situação patética para a ex-ministra da Agricultura de Dilma.
-"""
+def predict_text(text):
+    random_forest_classifier_pkl = r'models\random_forest_classifier__TfidfVectorizer.pkl'
+    vectorization_pkl = r'vectorizer\vectorizer.pkl'
+    model = get_model(random_forest_classifier_pkl)
+    vectorization = get_vectorization(vectorization_pkl)
 
-print(predict_text(text))
+    text = pre_text_treatment(text)
+    vector = vectorization.transform([text])
+    predict = model.predict(vector)
+    classification = predict[0]
+
+    if classification == True:
+        classification_text = 'Essa notícia parece ser é verdadeira.'
+    elif classification == False:
+        classification_text = 'Essa notícia parece ser é falsa.'
+    
+    return classification_text
+
+
+if __name__=='__main__':
+    text = """
+    Kátia Abreu diz que vai colocar sua expulsão em uma moldura, mas não para de reclamar.	
+    A senadora Kátia Abreu (sem partido-TO) disse que sua expulsão do PMDB foi resultado de uma ação da cúpula atual da legenda que, segundo ela, é oportunista.
+    “Amanhã eu vou botar numa moldura dourada a minha expulsão, porque das mãos de onde veio, é um atestado de boa conduta para o meu currículo. Essas pessoas que me expulsaram não servem ao país. Eles se servem do país em seus benefícios próprios”, disse Kátia Abreu.
+    Ué, mas se a expulsão é algo tão bom para seu currículo, por que tanta choradeira, Kátia?
+    Sabemos o motivo. Provavelmente Kátia não tem valor para o PT, partido que já deveria tê-la absorvido. Ao que parece o PT gostava de Kátia somente se ela ficasse entrincheirada dentro do PMDB.
+    Ou seja, isso é se rebaixar demais. Resta a Kátia ficar chorando as pitangas por todos os cantos.
+    Em tempo: até o momento o PT não cadastrou Kátia Abreu em suas fileiras. Que situação patética para a ex-ministra da Agricultura de Dilma.
+    """
+
+    print(predict_text(text))
