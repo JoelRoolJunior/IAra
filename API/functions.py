@@ -27,8 +27,8 @@ def pre_text_treatment(text):
 
 
 def predict_text(text):
-    random_forest_classifier_pkl = r'models\random_forest_classifier__TfidfVectorizer.pkl'
-    vectorization_pkl = r'vectorizer\vectorizer.pkl'
+    random_forest_classifier_pkl = r'C:\Users\joelr\repositorio\IAra\API\models\random_forest_classifier__TfidfVectorizer.pkl'
+    vectorization_pkl = r'C:\Users\joelr\repositorio\IAra\API\vectorizer\vectorizer.pkl'
     model = get_model(random_forest_classifier_pkl)
     vectorization = get_vectorization(vectorization_pkl)
 

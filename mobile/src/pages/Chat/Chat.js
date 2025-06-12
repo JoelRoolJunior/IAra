@@ -3,6 +3,7 @@ import React, { useState, useLayoutEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Chat() {
   const navigation = useNavigation();
@@ -39,7 +40,7 @@ export default function Chat() {
 
   const enviarTexto = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/responder?=${encodeURIComponent(mensagem)}`);
+      const response = await fetch(`http://192.168.1.8:5000/responder?texto=${encodeURIComponent(mensagem)}`);
 
       if (!response.ok) {
         throw new Error('Erro ao fazer requisição');
@@ -79,7 +80,7 @@ export default function Chat() {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <LinearGradient colors={['#87CEEB', '#120A8F']} start={{ x: 0.3, y: 0 }} style={styles.background} />
 
       <View style={styles.containerLogo}>
@@ -118,7 +119,7 @@ export default function Chat() {
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -150,7 +151,8 @@ const styles = StyleSheet.create({
     flex: 1, // É essencial que a KeyboardAvoidingView ocupe todo o espaço restante
     justifyContent: 'flex-end', // Alinha o conteúdo (FlatList e input) na parte inferior
     // NOVO: Empurra a KeyboardAvoidingView para começar abaixo da área do logo
-    marginTop: '25%', // Deve ser igual ao 'height' do containerLogo
+    //marginTop: '25%', // Deve ser igual ao 'height' do containerLogo
+    paddingBottom: Platform.OS === 'android' ? 20 : 0,
   },
   chatContent: {
     flex: 1, // Permite que o conteúdo do chat ocupe o espaço restante dentro do KAV
@@ -189,6 +191,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
     backgroundColor: 'transparent',
+    paddingBottom: Platform.OS === 'android' ? 20 : 0, // Evita sobreposição no Android
   },
   input: {
     flex: 1,
